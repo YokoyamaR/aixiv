@@ -463,7 +463,7 @@
       </ol>
       <div class="req" id="req-text">
         <strong>動作環境:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Claude Pro/Maxプランでの利用を想定）またはAnthropic API<br>
-        <span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。Anthropic APIを直接利用する場合は別途セットアップが必要です。</span>
+        <span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。1件のレポート生成で大量のトークンを消費するため、定額プラン（Pro/Max）の利用を推奨します。Anthropic APIでも利用可能ですが、従量課金のため高額になる場合があります。</span>
       </div>
     </div>
 
@@ -522,7 +522,7 @@
           'AIが各分野の専門家を模擬し、100ラウンドの議論を自動実行',
           '日本語+英語のレポートが生成され、このページに公開される'
         ],
-        req: '<strong>動作環境:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Claude Pro/Maxプランでの利用を想定）またはAnthropic API<br><span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。Anthropic APIを直接利用する場合は別途セットアップが必要です。</span>',
+        req: '<strong>動作環境:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Claude Pro/Maxプランでの利用を想定）またはAnthropic API<br><span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。1件のレポート生成で大量のトークンを消費するため、定額プラン（Pro/Max）の利用を推奨します。Anthropic APIでも利用可能ですが、従量課金のため高額になる場合があります。</span>',
         emptyTitle: 'まだレポートはありません。',
         filterReset: '[すべて表示]',
         experts: '名の専門家',
@@ -547,7 +547,7 @@
           'AI simulates domain experts and runs 100 rounds of discussion',
           'Reports in Japanese + English are generated and published here'
         ],
-        req: '<strong>Environment:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a> (designed for Claude Pro/Max plans) or Anthropic API<br><span style="font-size:0.8rem;">Runs as a Claude Code custom command (<code>/forge</code>). Direct Anthropic API usage requires separate setup.</span>',
+        req: '<strong>Environment:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a> (designed for Claude Pro/Max plans) or Anthropic API<br><span style="font-size:0.8rem;">Runs as a Claude Code custom command (<code>/forge</code>). Each report consumes a large number of tokens, so a flat-rate plan (Pro/Max) is recommended. The Anthropic API can also be used, but pay-per-use billing may result in significant costs.</span>',
         emptyTitle: 'No reports yet.',
         filterReset: '[show all]',
         experts: ' experts',
