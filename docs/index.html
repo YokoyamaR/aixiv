@@ -708,7 +708,7 @@
 
     async function init() {
       try {
-        const resp = await fetch('papers/index.json');
+        const resp = await fetch('papers/index.json?v=' + Date.now());
         if (resp.ok) {
           allPapers = await resp.json();
         }
