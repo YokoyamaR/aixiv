@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIカイブ — AI思考実験アーカイブ</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --tag-bg: #1f2937;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* 言語切り替え */
+    .lang-switch {
+      position: absolute;
+      top: 1rem;
+      right: 0;
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      padding: 0.35rem 0.8rem;
+      font-size: 0.85rem;
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .lang-btn:hover:not(.active) {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .how-it-works {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .how-it-works h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .how-it-works ol {
+      padding-left: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .how-it-works li {
+      margin-bottom: 0.4rem;
+    }
+
+    .how-it-works code {
+      background: var(--bg);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .papers-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1rem;
+    }
+
+    .papers-header h2 {
+      font-size: 1.3rem;
+    }
+
+    .paper-count {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .paper-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .paper-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s;
+      display: block;
+    }
+
+    .paper-card:hover {
+      border-color: var(--accent);
+    }
+
+    .paper-card h3 {
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .paper-card .meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .paper-card .description {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .paper-card .tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--text-muted);
+      padding: 0.15rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="ja">JA</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <h1>AIカイブ</h1>
+      <p id="subtitle">テーマを投げるだけ。AIが専門家パネルを召喚し、100ラウンドの議論からレポートを生成する思考実験アーカイブ。</p>
+    </header>
+
+    <div class="how-it-works" id="how-it-works">
+      <h2 id="how-title">使い方</h2>
+      <ol id="how-steps">
+        <li>リポジトリをクローンする</li>
+        <li><code>./forge "テーマ"</code> を実行</li>
+        <li>AIが専門家パネルを構成し、100ラウンドの議論を自動実行</li>
+        <li>日本語+英語のレポートが生成され、このページに公開される</li>
+      </ol>
+    </div>
+
+    <div class="papers-header">
+      <h2 id="reports-title">レポート</h2>
+      <span class="paper-count" id="count"></span>
+    </div>
+
+    <div class="paper-list" id="paper-list">
+      <div class="empty-state" id="empty-state">
+        <p>まだレポートはありません。</p>
+        <p><code>./forge "テーマ"</code> で最初のレポートを生成しましょう。</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>Powered by <a href="https://www.anthropic.com/" target="_blank">Claude</a> — AIカイブ</p>
+    </footer>
+  </div>
+
+  <script>
+    let currentLang = 'ja';
+    let allPapers = [];
+
+    const i18n = {
+      ja: {
+        subtitle: 'テーマを投げるだけ。AIが専門家パネルを召喚し、100ラウンドの議論からレポートを生成する思考実験アーカイブ。',
+        howTitle: '使い方',
+        howSteps: [
+          'リポジトリをクローンする',
+          '<code>./forge "テーマ"</code> を実行',
+          'AIが専門家パネルを構成し、100ラウンドの議論を自動実行',
+          '日本語+英語のレポートが生成され、このページに公開される'
+        ],
+        reportsTitle: 'レポート',
+        emptyTitle: 'まだレポートはありません。',
+        emptyBody: '<code>./forge "テーマ"</code> で最初のレポートを生成しましょう。',
+        experts: '名の専門家',
+        rounds: 'ラウンド',
+        noDate: '日付不明',
+        count: '件'
+      },
+      en: {
+        subtitle: 'Just throw in a topic. AI assembles an expert panel and generates a report from 100 rounds of discussion.',
+        howTitle: 'How it works',
+        howSteps: [
+          'Clone the repository',
+          'Run <code>./forge "your topic"</code>',
+          'AI assembles an expert panel and runs 100 rounds of discussion',
+          'Reports in Japanese + English are generated and published here'
+        ],
+        reportsTitle: 'Reports',
+        emptyTitle: 'No reports yet.',
+        emptyBody: 'Run <code>./forge "topic"</code> to generate the first report.',
+        experts: ' experts',
+        rounds: ' rounds',
+        noDate: 'No date',
+        count: ' reports'
+      }
+    };
+
+    function switchLang(lang) {
+      currentLang = lang;
+      const t = i18n[lang];
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      document.getElementById('subtitle').textContent = t.subtitle;
+      document.getElementById('how-title').textContent = t.howTitle;
+      document.getElementById('how-steps').innerHTML = t.howSteps.map(s => `<li>${s}</li>`).join('');
+      document.getElementById('reports-title').textContent = t.reportsTitle;
+
+      renderPapers();
+    }
+
+    function renderPapers() {
+      const lang = currentLang;
+      const t = i18n[lang];
+      const list = document.getElementById('paper-list');
+      const count = document.getElementById('count');
+
+      // 現在の言語に合うペーパーだけフィルタ
+      const filtered = allPapers.filter(p => p.lang === lang);
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="empty-state"><p>${t.emptyTitle}</p><p>${t.emptyBody}</p></div>`;
+        count.textContent = '';
+        return;
+      }
+
+      count.textContent = `${filtered.length}${t.count}`;
+      list.innerHTML = '';
+
+      filtered.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+      for (const paper of filtered) {
+        const card = document.createElement('a');
+        card.className = 'paper-card';
+        card.href = `papers/${paper.file}`;
+
+        const expertCount = paper.experts || 10;
+        const rounds = paper.rounds || 100;
+
+        card.innerHTML = `
+          <h3>${paper.title}</h3>
+          <div class="meta">${paper.date || t.noDate} — ${expertCount}${t.experts} — ${rounds}${t.rounds}</div>
+          <div class="description">${paper.description || ''}</div>
+          <div class="tags">
+            ${(paper.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+        `;
+        list.appendChild(card);
+      }
+    }
+
+    async function init() {
+      try {
+        const resp = await fetch('papers/index.json');
+        if (resp.ok) {
+          allPapers = await resp.json();
+        }
+      } catch (e) {}
+      renderPapers();
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchLang(btn.dataset.lang));
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>

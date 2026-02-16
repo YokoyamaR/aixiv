@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ============================================================
+#  AIカイブ (AIchive) — テーマを投げるだけでレポートを公開
+#
+#  使い方:
+#    ./forge "法律の耐用年数と国家の変容"
+#    ./forge "AIに意識は宿るか" --rounds 50
+# ============================================================
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROUNDS=100
+MODEL="claude-sonnet-4-5-20250929"
+
+# ── 引数パース ──
+if [ $# -eq 0 ]; then
+  echo ""
+  echo "  AIカイブ (AIchive) — 思考実験レポート自動生成"
+  echo ""
+  echo "  使い方:"
+  echo "    ./forge \"テーマをここに書く\""
+  echo "    ./forge \"テーマ\" --rounds 50"
+  echo "    ./forge \"テーマ\" --model claude-opus-4-6"
+  echo ""
+  echo "  テーマを与えるだけで:"
+  echo "    1. 最適な専門家パネルを自動構成"
+  echo "    2. 100ラウンドのパネルディスカッションを実行"
+  echo "    3. 日本語+英語のレポートを生成"
+  echo "    4. GitHub Pages に自動公開"
+  echo ""
+  exit 0
+fi
+
+THEME_TEXT="$1"
+shift
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --rounds) ROUNDS="$2"; shift 2 ;;
+    --model)  MODEL="$2";  shift 2 ;;
+    *)        echo "不明なオプション: $1"; exit 1 ;;
+  esac
+done
+
+# ── APIキー確認 ──
+if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+  echo "Error: ANTHROPIC_API_KEY が設定されていません。"
+  echo ""
+  echo "  export ANTHROPIC_API_KEY=\"sk-ant-...\""
+  echo ""
+  exit 1
+fi
+
+# ── Python依存確認 ──
+if ! command -v python3 &>/dev/null; then
+  echo "Error: python3 が見つかりません。"
+  exit 1
+fi
+
+if ! python3 -c "import anthropic" 2>/dev/null; then
+  echo "依存パッケージをインストール中..."
+  pip install -r "$SCRIPT_DIR/scripts/requirements.txt"
+fi
+
+# ── テーマYAMLを自動生成 ──
+SLUG=$(python3 -c "
+import re, unicodedata
+t = '''${THEME_TEXT}'''
+t = t.strip()[:40]
+t = re.sub(r'[^\w\s-]', '', t)
+t = re.sub(r'[\s]+', '-', t).strip('-')
+print(t if t else 'theme')
+")
+DATE=$(date +%Y%m%d_%H%M%S)
+THEME_FILE="$SCRIPT_DIR/themes/${DATE}_${SLUG}.yml"
+
+cat > "$THEME_FILE" << YAML
+title: "${THEME_TEXT}"
+slug: "${DATE}_${SLUG}"
+description: |
+  ${THEME_TEXT}
+YAML
+
+echo ""
+echo "============================================================"
+echo "  AIカイブ (AIchive)"
+echo "============================================================"
+echo ""
+echo "  テーマ:   ${THEME_TEXT}"
+echo "  ラウンド: ${ROUNDS}"
+echo "  モデル:   ${MODEL}"
+echo ""
+echo "============================================================"
+echo ""
+
+# ── Step 1: 議論実行 ──
+echo "[1/4] パネル構成 & 議論を実行中..."
+python3 "$SCRIPT_DIR/scripts/run_discussion.py" "$THEME_FILE" \
+  --rounds "$ROUNDS" \
+  --model "$MODEL"
+
+# ── Step 2: レポート生成（日本語+英語） ──
+OUTPUT_DIR="$SCRIPT_DIR/output/${DATE}_${SLUG}"
+echo ""
+echo "[2/4] レポートを生成中（日本語+英語）..."
+python3 "$SCRIPT_DIR/scripts/generate_whitepaper.py" "$OUTPUT_DIR" \
+  --model "$MODEL"
+
+# ── Step 3: インデックス更新 ──
+echo ""
+echo "[3/4] インデックスを更新中..."
+python3 "$SCRIPT_DIR/scripts/build_index.py"
+
+# ── Step 4: Git commit & push ──
+echo ""
+echo "[4/4] GitHubにpush中..."
+cd "$SCRIPT_DIR"
+git add themes/ docs/ output/
+git commit -m "Add: ${THEME_TEXT}" || true
+git push || {
+  echo ""
+  echo "Warning: git push に失敗しました。手動で push してください。"
+  echo "  cd $SCRIPT_DIR && git push"
+}
+
+echo ""
+echo "============================================================"
+echo "  完了!"
+echo "============================================================"
+echo ""
+echo "  レポート: docs/papers/ 配下に保存されました（JA + EN）"
+echo "  議論ログ: output/${DATE}_${SLUG}/"
+echo ""
+echo "  GitHub Pagesが有効なら、数分後にWebで閲覧可能になります。"
+echo ""
