@@ -456,14 +456,14 @@
     <div class="contribute" id="contribute">
       <h2 id="contribute-title">レポートを追加する</h2>
       <ol id="contribute-steps">
-        <li>リポジトリをクローンし、Claude Code で開く</li>
+        <li><a href="https://github.com/YokoyamaR/aichive" target="_blank">リポジトリ</a>をクローンし、Claude Code で開く</li>
         <li><code>/forge テーマ</code> を実行</li>
         <li>AIが各分野の専門家を模擬し、100ラウンドの議論を自動実行</li>
         <li>日本語+英語のレポートが生成され、このページに公開される</li>
       </ol>
       <div class="req" id="req-text">
-        <strong>動作環境:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Claude Pro/Maxプランでの利用を想定）またはAnthropic API<br>
-        <span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。1件のレポート生成で大量のトークンを消費するため、定額プラン（Pro/Max）の利用を推奨します。Anthropic APIでも利用可能ですが、従量課金のため高額になる場合があります。</span>
+        <strong>動作環境:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Claude Pro/Maxプラン）<br>
+        <span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。1件のレポート生成で大量のトークンを消費するため、定額プラン（Pro/Max）での利用を想定しています。</span>
       </div>
     </div>
 
@@ -517,12 +517,12 @@
         recentTitle: '最新のレポート',
         contributeTitle: 'レポートを追加する',
         contributeSteps: [
-          'リポジトリをクローンし、Claude Code で開く',
+          '<a href="https://github.com/YokoyamaR/aichive" target="_blank">リポジトリ</a>をクローンし、Claude Code で開く',
           '<code>/forge テーマ</code> を実行',
           'AIが各分野の専門家を模擬し、100ラウンドの議論を自動実行',
           '日本語+英語のレポートが生成され、このページに公開される'
         ],
-        req: '<strong>動作環境:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Claude Pro/Maxプランでの利用を想定）またはAnthropic API<br><span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。1件のレポート生成で大量のトークンを消費するため、定額プラン（Pro/Max）の利用を推奨します。Anthropic APIでも利用可能ですが、従量課金のため高額になる場合があります。</span>',
+        req: '<strong>動作環境:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Claude Pro/Maxプラン）<br><span style="font-size:0.8rem;">Claude Codeのカスタムコマンド（<code>/forge</code>）として動作します。1件のレポート生成で大量のトークンを消費するため、定額プラン（Pro/Max）での利用を想定しています。</span>',
         emptyTitle: 'まだレポートはありません。',
         filterReset: '[すべて表示]',
         experts: '名の専門家',
@@ -542,12 +542,12 @@
         recentTitle: 'Recent Reports',
         contributeTitle: 'Submit a Report',
         contributeSteps: [
-          'Clone the repository and open it in Claude Code',
+          'Clone the <a href="https://github.com/YokoyamaR/aichive" target="_blank">repository</a> and open it in Claude Code',
           'Run <code>/forge your topic</code>',
           'AI simulates domain experts and runs 100 rounds of discussion',
           'Reports in Japanese + English are generated and published here'
         ],
-        req: '<strong>Environment:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a> (designed for Claude Pro/Max plans) or Anthropic API<br><span style="font-size:0.8rem;">Runs as a Claude Code custom command (<code>/forge</code>). Each report consumes a large number of tokens, so a flat-rate plan (Pro/Max) is recommended. The Anthropic API can also be used, but pay-per-use billing may result in significant costs.</span>',
+        req: '<strong>Environment:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a> (Claude Pro/Max plan)<br><span style="font-size:0.8rem;">Runs as a Claude Code custom command (<code>/forge</code>). Each report consumes a large number of tokens, so it is designed for use with a flat-rate plan (Pro/Max).</span>',
         emptyTitle: 'No reports yet.',
         filterReset: '[show all]',
         experts: ' experts',
