@@ -329,7 +329,7 @@
       for (const paper of filtered) {
         const card = document.createElement('a');
         card.className = 'paper-card';
-        card.href = `papers/${paper.file}`;
+        card.href = `viewer.html?f=${paper.file}`;
 
         const expertCount = paper.experts || 10;
         const rounds = paper.rounds || 100;
