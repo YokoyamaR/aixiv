@@ -6,34 +6,36 @@
   <title>AIchive — Report</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
     :root {
-      --bg: #f6f6f6;
+      --bg: #f5f5f0;
       --surface: #fff;
-      --border: #ddd;
-      --text: #333;
-      --text-muted: #666;
-      --accent: #b31b1b;
-      --link: #0066cc;
-      --link-hover: #004499;
-      --code-bg: #f0f0f0;
+      --border: #ccc;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --accent: #8b0000;
+      --link: #00529b;
+      --link-hover: #003366;
+      --code-bg: #f0ede6;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: "Computer Modern Serif", "Noto Serif JP", Georgia, "Times New Roman", serif;
+      font-family: "Source Serif 4", "Noto Serif JP", "Times New Roman", Georgia, serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.8;
-      font-size: 15px;
+      line-height: 1.9;
+      font-size: 16px;
     }
 
     a { color: var(--link); text-decoration: none; }
     a:hover { color: var(--link-hover); text-decoration: underline; }
 
     .topbar {
-      border-bottom: 3px solid var(--accent);
-      padding: 0.6rem 1.5rem;
+      border-bottom: 2px solid var(--accent);
+      padding: 0.5rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -41,22 +43,22 @@
       top: 0;
       background: var(--surface);
       z-index: 10;
+      font-family: "Helvetica Neue", "Noto Sans JP", Arial, sans-serif;
+      font-size: 0.85rem;
     }
 
     .topbar a {
       color: var(--accent);
       text-decoration: none;
-      font-size: 0.9rem;
-      font-family: "Lucida Grande", "Noto Sans JP", sans-serif;
+      font-weight: 600;
     }
 
     .topbar a:hover { text-decoration: underline; }
 
     .topbar .title {
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 400;
+      font-size: 0.85rem;
       color: var(--text-muted);
-      font-family: "Lucida Grande", "Noto Sans JP", sans-serif;
       max-width: 60%;
       text-align: right;
       overflow: hidden;
@@ -64,81 +66,125 @@
       white-space: nowrap;
     }
 
-    .container {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+    /* Paper container — mimics academic paper */
+    .paper {
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 3rem 3.5rem 4rem;
       background: var(--surface);
-      min-height: 100vh;
-      border-left: 1px solid var(--border);
-      border-right: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
 
+    @media (max-width: 800px) {
+      .paper {
+        margin: 0;
+        padding: 1.5rem;
+        box-shadow: none;
+      }
+    }
+
+    /* Title — academic style */
     .article h1 {
-      font-size: 1.6rem;
-      margin: 1.5rem 0 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--accent);
-      color: var(--accent);
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin: 0 0 1.5rem;
+      text-align: center;
+      line-height: 1.4;
+      color: var(--text);
     }
 
+    /* Section headings */
     .article h2 {
-      font-size: 1.3rem;
-      margin: 2rem 0 0.8rem;
-      padding-bottom: 0.3rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 2.5rem 0 0.8rem;
+      padding-bottom: 0.2rem;
       border-bottom: 1px solid var(--border);
+      color: var(--text);
     }
 
     .article h3 {
-      font-size: 1.1rem;
-      margin: 1.5rem 0 0.6rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 1.8rem 0 0.5rem;
+      color: var(--text);
     }
 
-    .article p { margin: 0.8rem 0; }
-    .article ul, .article ol { margin: 0.8rem 0; padding-left: 1.8rem; }
-    .article li { margin: 0.3rem 0; }
+    .article h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 1.2rem 0 0.4rem;
+      font-style: italic;
+    }
 
+    .article p {
+      margin: 0.7rem 0;
+      text-align: justify;
+    }
+
+    .article ul, .article ol {
+      margin: 0.8rem 0;
+      padding-left: 2rem;
+    }
+
+    .article li {
+      margin: 0.25rem 0;
+    }
+
+    /* Abstract / blockquote styling */
     .article blockquote {
-      border-left: 3px solid var(--accent);
-      padding: 0.5rem 1rem;
-      margin: 1rem 0;
-      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 1rem;
+      color: var(--text);
       background: var(--code-bg);
-      border-radius: 0 4px 4px 0;
+      border-radius: 2px;
+      font-size: 0.92em;
+      line-height: 1.8;
     }
 
+    /* Tables — academic style */
     .article table {
       border-collapse: collapse;
       width: 100%;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
       font-size: 0.9rem;
     }
 
+    .article caption, .article table + p em {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      display: block;
+    }
+
     .article th, .article td {
-      border: 1px solid var(--border);
-      padding: 0.5rem 0.8rem;
+      border: 1px solid #999;
+      padding: 0.4rem 0.7rem;
       text-align: left;
     }
 
     .article th {
       background: var(--code-bg);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .article code {
       background: var(--code-bg);
-      padding: 0.15rem 0.4rem;
-      border-radius: 3px;
-      font-size: 0.9em;
+      padding: 0.1rem 0.35rem;
+      border-radius: 2px;
+      font-size: 0.88em;
+      font-family: "SF Mono", "Consolas", "Liberation Mono", monospace;
     }
 
     .article pre {
       background: var(--code-bg);
       padding: 1rem;
-      border-radius: 4px;
+      border-radius: 2px;
       overflow-x: auto;
       margin: 1rem 0;
       border: 1px solid var(--border);
+      font-size: 0.85em;
     }
 
     .article pre code {
@@ -149,24 +195,56 @@
     .article hr {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 2rem 0;
+      margin: 2.5rem 0;
     }
 
     .article strong {
-      color: var(--text);
       font-weight: 700;
     }
 
+    .article em {
+      font-style: italic;
+    }
+
+    /* Footnotes / references style */
+    .article sup {
+      font-size: 0.75em;
+      line-height: 0;
+    }
+
+    /* Loading / Error */
     .loading {
       text-align: center;
       padding: 4rem;
       color: var(--text-muted);
+      font-family: sans-serif;
     }
 
     .error {
       text-align: center;
       padding: 4rem;
       color: var(--accent);
+      font-family: sans-serif;
+    }
+
+    /* Paper metadata banner */
+    .paper-meta-banner {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-family: "Helvetica Neue", "Noto Sans JP", Arial, sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .paper-meta-banner .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
     }
   </style>
 </head>
@@ -175,7 +253,7 @@
     <a href="./">← AIchive</a>
     <span class="title" id="page-title"></span>
   </div>
-  <div class="container">
+  <div class="paper">
     <div id="content" class="loading">Loading...</div>
   </div>
   <script>
@@ -190,15 +268,29 @@
         return;
       }
 
+      // Extract metadata from filename
+      const dateMatch = file.match(/^(\d{4}-\d{2}-\d{2})/);
+      const lang = file.endsWith('_ja.md') ? 'ja' : file.endsWith('_en.md') ? 'en' : '';
+
       try {
         const resp = await fetch(`papers/${file}`);
         if (!resp.ok) throw new Error(`${resp.status}`);
         let text = await resp.text();
 
-        // strip frontmatter
+        // Extract and strip frontmatter
+        let frontmatter = {};
         if (text.startsWith('---')) {
           const parts = text.split('---');
           if (parts.length >= 3) {
+            const fmText = parts[1];
+            fmText.split('\n').forEach(line => {
+              const idx = line.indexOf(':');
+              if (idx > 0) {
+                const key = line.substring(0, idx).trim();
+                const val = line.substring(idx + 1).trim().replace(/^"/, '').replace(/"$/, '');
+                frontmatter[key] = val;
+              }
+            });
             text = parts.slice(2).join('---');
           }
         }
@@ -206,11 +298,31 @@
         contentEl.className = 'article';
         contentEl.innerHTML = marked.parse(text);
 
+        // Set page title
         const h1 = contentEl.querySelector('h1');
         if (h1) {
           document.getElementById('page-title').textContent = h1.textContent;
           document.title = h1.textContent + ' — AIchive';
         }
+
+        // Insert metadata banner after h1
+        if (h1) {
+          const metaBanner = document.createElement('div');
+          metaBanner.className = 'paper-meta-banner';
+
+          const rounds = frontmatter.rounds || '100';
+          const date = frontmatter.date || (dateMatch ? dateMatch[1] : '');
+          const langLabel = lang === 'ja' ? '日本語' : lang === 'en' ? 'English' : '';
+
+          let metaHTML = '<div class="meta-label">AIchive Report</div>';
+          if (date) metaHTML += `<div>Published: ${date}</div>`;
+          metaHTML += `<div>Generated from ${rounds}-round AI-simulated expert panel discussion</div>`;
+          if (langLabel) metaHTML += `<div>Language: ${langLabel}</div>`;
+
+          metaBanner.innerHTML = metaHTML;
+          h1.after(metaBanner);
+        }
+
       } catch (e) {
         contentEl.className = 'error';
         contentEl.textContent = `Failed to load report (${e.message})`;

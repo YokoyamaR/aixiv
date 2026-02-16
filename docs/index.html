@@ -394,7 +394,7 @@
   <div class="container">
     <!-- About -->
     <div class="about-banner" id="about-banner">
-      <strong>AIchive</strong>は、あらゆる分野の知識をAI専門家パネルの議論を通じて集約するオープンプラットフォームです。テーマを投げるだけで、AIが最適な専門家チームを自動構成し、100ラウンドの多角的議論からレポートを生成します。
+      <strong>AIchive</strong>は、あらゆる分野の知識を集約するオープンプラットフォームです。テーマを投げるだけで、AIが各分野の専門家を模擬し、多角的な視点から100ラウンドのパネルディスカッションを自動実行。その議論をもとにレポートを生成します。
     </div>
 
     <!-- Subject Areas -->
@@ -417,7 +417,7 @@
       <ol id="contribute-steps">
         <li>リポジトリをクローンする</li>
         <li><code>./forge "テーマ"</code> を実行</li>
-        <li>AIが専門家パネルを構成し、100ラウンドの議論を自動実行</li>
+        <li>AIが各分野の専門家を模擬し、100ラウンドの議論を自動実行</li>
         <li>日本語+英語のレポートが生成され、このページに公開される</li>
       </ol>
       <div class="req" id="req-text">
@@ -426,7 +426,7 @@
     </div>
 
     <footer>
-      <p>Powered by <a href="https://www.anthropic.com/" target="_blank">Claude</a> — AIchive</p>
+      <p>AIchive — Built with <a href="https://www.anthropic.com/" target="_blank">Claude API</a></p>
     </footer>
   </div>
 
@@ -468,14 +468,14 @@
     const i18n = {
       ja: {
         tagline: 'AI + Archive',
-        about: '<strong>AIchive</strong>は、あらゆる分野の知識をAI専門家パネルの議論を通じて集約するオープンプラットフォームです。テーマを投げるだけで、AIが最適な専門家チームを自動構成し、100ラウンドの多角的議論からレポートを生成します。',
+        about: '<strong>AIchive</strong>は、あらゆる分野の知識を集約するオープンプラットフォームです。テーマを投げるだけで、AIが各分野の専門家を模擬し、多角的な視点から100ラウンドのパネルディスカッションを自動実行。その議論をもとにレポートを生成します。',
         subjectsTitle: '分野別',
         recentTitle: '最新のレポート',
         contributeTitle: 'レポートを追加する',
         contributeSteps: [
           'リポジトリをクローンする',
           '<code>./forge "テーマ"</code> を実行',
-          'AIが専門家パネルを構成し、100ラウンドの議論を自動実行',
+          'AIが各分野の専門家を模擬し、100ラウンドの議論を自動実行',
           '日本語+英語のレポートが生成され、このページに公開される'
         ],
         req: '<strong>必要なもの:</strong> Python 3.11+, Anthropic API Key (<code>ANTHROPIC_API_KEY</code>)',
@@ -491,14 +491,14 @@
       },
       en: {
         tagline: 'AI + Archive',
-        about: '<strong>AIchive</strong> is an open platform that aggregates knowledge from every discipline through AI expert panel discussions. Just throw in a topic — AI automatically assembles the optimal expert team and generates a report from 100 rounds of multifaceted discussion.',
+        about: '<strong>AIchive</strong> is an open platform that aggregates knowledge from every discipline. Just throw in a topic — AI simulates domain experts and conducts 100 rounds of panel discussion from multiple perspectives, then generates a comprehensive report.',
         subjectsTitle: 'Subject Areas',
         recentTitle: 'Recent Reports',
         contributeTitle: 'Submit a Report',
         contributeSteps: [
           'Clone the repository',
           'Run <code>./forge "your topic"</code>',
-          'AI assembles an expert panel and runs 100 rounds of discussion',
+          'AI simulates domain experts and runs 100 rounds of discussion',
           'Reports in Japanese + English are generated and published here'
         ],
         req: '<strong>Requirements:</strong> Python 3.11+, Anthropic API Key (<code>ANTHROPIC_API_KEY</code>)',
