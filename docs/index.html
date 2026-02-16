@@ -415,19 +415,19 @@
     <div class="contribute" id="contribute">
       <h2 id="contribute-title">レポートを追加する</h2>
       <ol id="contribute-steps">
-        <li>リポジトリをクローンする</li>
-        <li><code>./forge "テーマ"</code> を実行</li>
+        <li>リポジトリをクローンし、Claude Code で開く</li>
+        <li><code>/forge テーマ</code> を実行</li>
         <li>AIが各分野の専門家を模擬し、100ラウンドの議論を自動実行</li>
         <li>日本語+英語のレポートが生成され、このページに公開される</li>
       </ol>
       <div class="req" id="req-text">
-        <strong>必要なもの:</strong> Python 3.11+, <a href="https://console.anthropic.com/" target="_blank">Anthropic API Key</a>（<code>ANTHROPIC_API_KEY</code>環境変数に設定）<br>
-        <span style="font-size:0.8rem;">本ツールはAnthropicのClaude APIを利用してレポートを生成します。APIキーは<a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a>から取得できます。</span>
+        <strong>必要なもの:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a> + Claude Pro または Max プラン<br>
+        <span style="font-size:0.8rem;">本ツールは <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Anthropic公式CLI）のカスタムコマンドとして動作します。APIキーは不要です。</span>
       </div>
     </div>
 
     <footer>
-      <p>AIchive — Built with <a href="https://www.anthropic.com/" target="_blank">Claude API</a></p>
+      <p>AIchive — Built with <a href="https://claude.ai/download" target="_blank">Claude Code</a></p>
     </footer>
   </div>
 
@@ -474,12 +474,12 @@
         recentTitle: '最新のレポート',
         contributeTitle: 'レポートを追加する',
         contributeSteps: [
-          'リポジトリをクローンする',
-          '<code>./forge "テーマ"</code> を実行',
+          'リポジトリをクローンし、Claude Code で開く',
+          '<code>/forge テーマ</code> を実行',
           'AIが各分野の専門家を模擬し、100ラウンドの議論を自動実行',
           '日本語+英語のレポートが生成され、このページに公開される'
         ],
-        req: '<strong>必要なもの:</strong> Python 3.11+, <a href="https://console.anthropic.com/" target="_blank">Anthropic API Key</a>（<code>ANTHROPIC_API_KEY</code>環境変数に設定）<br><span style="font-size:0.8rem;">本ツールはAnthropicのClaude APIを利用してレポートを生成します。APIキーは<a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a>から取得できます。</span>',
+        req: '<strong>必要なもの:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a> + Claude Pro または Max プラン<br><span style="font-size:0.8rem;">本ツールは <a href="https://claude.ai/download" target="_blank">Claude Code</a>（Anthropic公式CLI）のカスタムコマンドとして動作します。APIキーは不要です。</span>',
         emptyTitle: 'まだレポートはありません。',
         filterReset: '[すべて表示]',
         experts: '名の専門家',
@@ -497,12 +497,12 @@
         recentTitle: 'Recent Reports',
         contributeTitle: 'Submit a Report',
         contributeSteps: [
-          'Clone the repository',
-          'Run <code>./forge "your topic"</code>',
+          'Clone the repository and open it in Claude Code',
+          'Run <code>/forge your topic</code>',
           'AI simulates domain experts and runs 100 rounds of discussion',
           'Reports in Japanese + English are generated and published here'
         ],
-        req: '<strong>Requirements:</strong> Python 3.11+, <a href="https://console.anthropic.com/" target="_blank">Anthropic API Key</a> (set as <code>ANTHROPIC_API_KEY</code> env var)<br><span style="font-size:0.8rem;">This tool uses Anthropic\'s Claude API to generate reports. Get your API key from the <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a>.</span>',
+        req: '<strong>Requirements:</strong> <a href="https://claude.ai/download" target="_blank">Claude Code</a> + Claude Pro or Max plan<br><span style="font-size:0.8rem;">This tool runs as a custom command in <a href="https://claude.ai/download" target="_blank">Claude Code</a> (Anthropic\'s official CLI). No API key required.</span>',
         emptyTitle: 'No reports yet.',
         filterReset: '[show all]',
         experts: ' experts',
