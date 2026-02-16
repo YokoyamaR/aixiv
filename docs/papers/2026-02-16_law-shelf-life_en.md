@@ -3,6 +3,7 @@ title: "The Shelf Life of Law and the Transformation of the State"
 date: 2026-02-16
 rounds: 100
 lang: en
+category: law
 ---
 
 # The Shelf Life of Law and Institutional Evolution — Possibilities for Non-Violent Legal Reset in the Age of AI

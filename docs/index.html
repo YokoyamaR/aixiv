@@ -3,75 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIカイブ — AI思考実験アーカイブ</title>
+  <title>AIchive — AI + Archive</title>
   <style>
     :root {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --border: #30363d;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --accent: #58a6ff;
-      --accent-hover: #79c0ff;
-      --tag-bg: #1f2937;
+      --bg: #f6f6f6;
+      --surface: #fff;
+      --border: #ddd;
+      --text: #333;
+      --text-muted: #666;
+      --accent: #b31b1b;
+      --accent-hover: #8b1515;
+      --link: #0066cc;
+      --link-hover: #004499;
+      --cat-bg: #f0f0f0;
+      --header-bg: #fff;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", Helvetica, Arial, sans-serif;
+      font-family: "Lucida Grande", "Noto Sans JP", Geneva, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      font-size: 14px;
     }
 
-    .container {
-      max-width: 960px;
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+
+    /* ─── Header ─── */
+    .site-header {
+      background: var(--header-bg);
+      border-bottom: 3px solid var(--accent);
+      padding: 1rem 0;
+    }
+
+    .header-inner {
+      max-width: 980px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    header {
-      text-align: center;
-      padding: 3rem 0 2rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 2rem;
-      position: relative;
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
     }
 
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.05em;
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.02em;
     }
 
-    header p {
+    .logo .tagline {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 600px;
-      margin: 0 auto;
+      font-style: italic;
     }
 
-    /* 言語切り替え */
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
     .lang-switch {
-      position: absolute;
-      top: 1rem;
-      right: 0;
       display: flex;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 4px;
       overflow: hidden;
     }
 
     .lang-btn {
-      padding: 0.35rem 0.8rem;
-      font-size: 0.85rem;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
       background: transparent;
       color: var(--text-muted);
       border: none;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
 
     .lang-btn:not(:last-child) {
@@ -84,211 +100,443 @@
     }
 
     .lang-btn:hover:not(.active) {
-      background: var(--surface);
-      color: var(--text);
+      background: var(--cat-bg);
     }
 
-    .how-it-works {
-      background: var(--surface);
+    /* ─── Search ─── */
+    .search-bar {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .how-it-works h2 {
-      font-size: 1.1rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .how-it-works ol {
-      padding-left: 1.5rem;
-      color: var(--text-muted);
-    }
-
-    .how-it-works li {
-      margin-bottom: 0.4rem;
-    }
-
-    .how-it-works code {
-      background: var(--bg);
-      padding: 0.15rem 0.4rem;
       border-radius: 4px;
-      font-size: 0.9em;
-    }
-
-    .papers-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1rem;
-    }
-
-    .papers-header h2 {
-      font-size: 1.3rem;
-    }
-
-    .paper-count {
-      color: var(--text-muted);
       font-size: 0.9rem;
+      font-family: inherit;
     }
 
-    .paper-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .paper-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.2s;
-      display: block;
-    }
-
-    .paper-card:hover {
+    .search-bar input:focus {
+      outline: none;
       border-color: var(--accent);
     }
 
-    .paper-card h3 {
-      font-size: 1.15rem;
-      color: var(--accent);
-      margin-bottom: 0.4rem;
+    .search-bar button {
+      padding: 0.4rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
     }
 
-    .paper-card .meta {
+    .search-bar button:hover {
+      background: var(--accent-hover);
+    }
+
+    /* ─── Main ─── */
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* ─── About banner ─── */
+    .about-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .about-banner strong {
+      color: var(--text);
+    }
+
+    /* ─── Subject areas ─── */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .subject-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .subject-card:hover {
+      border-color: var(--accent);
+    }
+
+    .subject-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+    }
+
+    .subject-card .sub-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .subject-card .sub-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ─── Recent papers ─── */
+    .recent-section {
+      margin-bottom: 2rem;
+    }
+
+    .paper-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .paper-item {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.1s;
+    }
+
+    .paper-item:last-child {
+      border-bottom: none;
+    }
+
+    .paper-item:hover {
+      background: var(--cat-bg);
+      text-decoration: none;
+    }
+
+    .paper-item .paper-id {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    .paper-item .paper-title {
+      font-weight: 600;
+      color: var(--link);
+    }
+
+    .paper-item:hover .paper-title {
+      text-decoration: underline;
+    }
+
+    .paper-item .paper-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .paper-item .paper-desc {
       font-size: 0.85rem;
       color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .paper-card .description {
-      font-size: 0.95rem;
-      color: var(--text-muted);
+      margin-top: 0.3rem;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    .paper-card .tags {
+    .paper-item .paper-tags {
       display: flex;
-      gap: 0.5rem;
-      margin-top: 0.6rem;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
       flex-wrap: wrap;
     }
 
     .tag {
-      background: var(--tag-bg);
+      background: var(--cat-bg);
       color: var(--text-muted);
-      padding: 0.15rem 0.6rem;
-      border-radius: 12px;
+      padding: 0.1rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+    }
+
+    /* ─── How to contribute ─── */
+    .contribute {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .contribute h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .contribute ol {
+      padding-left: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .contribute li {
+      margin-bottom: 0.3rem;
+    }
+
+    .contribute code {
+      background: var(--cat-bg);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
+
+    .contribute .req {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .contribute .req strong {
+      color: var(--text);
+    }
+
+    /* ─── Empty state ─── */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
       font-size: 0.8rem;
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 3rem;
-      color: var(--text-muted);
+    /* ─── Category filter (active state) ─── */
+    .subject-card.active {
+      border-color: var(--accent);
+      background: #fff5f5;
     }
 
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      margin-top: 3rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
+    .filter-reset {
       font-size: 0.85rem;
+      color: var(--accent);
+      cursor: pointer;
+      margin-left: 0.8rem;
+      display: none;
     }
 
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
+    .filter-reset:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="lang-switch">
-        <button class="lang-btn active" data-lang="ja">JA</button>
-        <button class="lang-btn" data-lang="en">EN</button>
-      </div>
-      <h1>AIカイブ</h1>
-      <p id="subtitle">テーマを投げるだけ。AIが専門家パネルを召喚し、100ラウンドの議論からレポートを生成する思考実験アーカイブ。</p>
-    </header>
 
-    <div class="how-it-works" id="how-it-works">
-      <h2 id="how-title">使い方</h2>
-      <ol id="how-steps">
+  <!-- Header -->
+  <div class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <h1>AIchive</h1>
+        <span class="tagline" id="tagline">AI + Archive</span>
+      </div>
+      <div class="header-nav">
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="ja">JA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="レポートを検索..." />
+    <button id="search-btn" onclick="doSearch()">検索</button>
+  </div>
+
+  <div class="container">
+    <!-- About -->
+    <div class="about-banner" id="about-banner">
+      <strong>AIchive</strong>は、あらゆる分野の知識をAI専門家パネルの議論を通じて集約するオープンプラットフォームです。テーマを投げるだけで、AIが最適な専門家チームを自動構成し、100ラウンドの多角的議論からレポートを生成します。
+    </div>
+
+    <!-- Subject Areas -->
+    <h2 class="section-title" id="subjects-title">分野別 <span class="filter-reset" id="filter-reset" onclick="resetFilter()">[すべて表示]</span></h2>
+    <div class="subject-grid" id="subject-grid"></div>
+
+    <!-- Recent Papers -->
+    <div class="recent-section">
+      <h2 class="section-title" id="recent-title">最新のレポート <span class="paper-count" id="count"></span></h2>
+      <div class="paper-list" id="paper-list">
+        <div class="empty-state" id="empty-state">
+          <p>まだレポートはありません。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to contribute -->
+    <div class="contribute" id="contribute">
+      <h2 id="contribute-title">レポートを追加する</h2>
+      <ol id="contribute-steps">
         <li>リポジトリをクローンする</li>
         <li><code>./forge "テーマ"</code> を実行</li>
         <li>AIが専門家パネルを構成し、100ラウンドの議論を自動実行</li>
         <li>日本語+英語のレポートが生成され、このページに公開される</li>
       </ol>
-    </div>
-
-    <div class="papers-header">
-      <h2 id="reports-title">レポート</h2>
-      <span class="paper-count" id="count"></span>
-    </div>
-
-    <div class="paper-list" id="paper-list">
-      <div class="empty-state" id="empty-state">
-        <p>まだレポートはありません。</p>
-        <p><code>./forge "テーマ"</code> で最初のレポートを生成しましょう。</p>
+      <div class="req" id="req-text">
+        <strong>必要なもの:</strong> Python 3.11+, Anthropic API Key (<code>ANTHROPIC_API_KEY</code>)
       </div>
     </div>
 
     <footer>
-      <p>Powered by <a href="https://www.anthropic.com/" target="_blank">Claude</a> — AIカイブ</p>
+      <p>Powered by <a href="https://www.anthropic.com/" target="_blank">Claude</a> — AIchive</p>
     </footer>
   </div>
 
   <script>
     let currentLang = 'ja';
     let allPapers = [];
+    let activeCategory = null;
+    let searchQuery = '';
 
+    // ── Subject categories ──
+    const categories = {
+      ja: [
+        { id: 'law',         name: '法学・統治',        desc: '法律、制度設計、憲法、国際法' },
+        { id: 'philosophy',   name: '哲学・思想',        desc: '存在論、認識論、倫理学、美学' },
+        { id: 'science',      name: '科学・技術',        desc: '物理学、生物学、工学、情報科学' },
+        { id: 'society',      name: '社会・文化',        desc: '社会学、人類学、歴史学、言語学' },
+        { id: 'economics',    name: '経済・経営',        desc: '経済学、金融、経営戦略、労働' },
+        { id: 'ethics',       name: '倫理・AI',          desc: 'AI倫理、生命倫理、技術倫理' },
+        { id: 'environment',  name: '環境・エネルギー',  desc: '気候変動、持続可能性、資源' },
+        { id: 'health',       name: '医療・生命科学',    desc: '医学、公衆衛生、神経科学' },
+        { id: 'education',    name: '教育・人材',        desc: '教育制度、学習科学、人材開発' },
+        { id: 'other',        name: 'その他',            desc: '分野横断的テーマ' }
+      ],
+      en: [
+        { id: 'law',         name: 'Law & Governance',     desc: 'Law, institutional design, constitutional law, international law' },
+        { id: 'philosophy',   name: 'Philosophy',           desc: 'Ontology, epistemology, ethics, aesthetics' },
+        { id: 'science',      name: 'Science & Technology', desc: 'Physics, biology, engineering, computer science' },
+        { id: 'society',      name: 'Society & Culture',    desc: 'Sociology, anthropology, history, linguistics' },
+        { id: 'economics',    name: 'Economics & Business', desc: 'Economics, finance, management, labor' },
+        { id: 'ethics',       name: 'Ethics & AI',          desc: 'AI ethics, bioethics, technology ethics' },
+        { id: 'environment',  name: 'Environment & Energy', desc: 'Climate change, sustainability, resources' },
+        { id: 'health',       name: 'Health & Life Science',desc: 'Medicine, public health, neuroscience' },
+        { id: 'education',    name: 'Education',            desc: 'Education systems, learning science, human development' },
+        { id: 'other',        name: 'Other',                desc: 'Cross-disciplinary topics' }
+      ]
+    };
+
+    // ── i18n ──
     const i18n = {
       ja: {
-        subtitle: 'テーマを投げるだけ。AIが専門家パネルを召喚し、100ラウンドの議論からレポートを生成する思考実験アーカイブ。',
-        howTitle: '使い方',
-        howSteps: [
+        tagline: 'AI + Archive',
+        about: '<strong>AIchive</strong>は、あらゆる分野の知識をAI専門家パネルの議論を通じて集約するオープンプラットフォームです。テーマを投げるだけで、AIが最適な専門家チームを自動構成し、100ラウンドの多角的議論からレポートを生成します。',
+        subjectsTitle: '分野別',
+        recentTitle: '最新のレポート',
+        contributeTitle: 'レポートを追加する',
+        contributeSteps: [
           'リポジトリをクローンする',
           '<code>./forge "テーマ"</code> を実行',
           'AIが専門家パネルを構成し、100ラウンドの議論を自動実行',
           '日本語+英語のレポートが生成され、このページに公開される'
         ],
-        reportsTitle: 'レポート',
+        req: '<strong>必要なもの:</strong> Python 3.11+, Anthropic API Key (<code>ANTHROPIC_API_KEY</code>)',
         emptyTitle: 'まだレポートはありません。',
-        emptyBody: '<code>./forge "テーマ"</code> で最初のレポートを生成しましょう。',
+        filterReset: '[すべて表示]',
         experts: '名の専門家',
         rounds: 'ラウンド',
         noDate: '日付不明',
-        count: '件'
+        count: '件',
+        searchPlaceholder: 'レポートを検索...',
+        searchBtn: '検索',
+        nPapers: '件のレポート'
       },
       en: {
-        subtitle: 'Just throw in a topic. AI assembles an expert panel and generates a report from 100 rounds of discussion.',
-        howTitle: 'How it works',
-        howSteps: [
+        tagline: 'AI + Archive',
+        about: '<strong>AIchive</strong> is an open platform that aggregates knowledge from every discipline through AI expert panel discussions. Just throw in a topic — AI automatically assembles the optimal expert team and generates a report from 100 rounds of multifaceted discussion.',
+        subjectsTitle: 'Subject Areas',
+        recentTitle: 'Recent Reports',
+        contributeTitle: 'Submit a Report',
+        contributeSteps: [
           'Clone the repository',
           'Run <code>./forge "your topic"</code>',
           'AI assembles an expert panel and runs 100 rounds of discussion',
           'Reports in Japanese + English are generated and published here'
         ],
-        reportsTitle: 'Reports',
+        req: '<strong>Requirements:</strong> Python 3.11+, Anthropic API Key (<code>ANTHROPIC_API_KEY</code>)',
         emptyTitle: 'No reports yet.',
-        emptyBody: 'Run <code>./forge "topic"</code> to generate the first report.',
+        filterReset: '[show all]',
         experts: ' experts',
         rounds: ' rounds',
         noDate: 'No date',
-        count: ' reports'
+        count: ' reports',
+        searchPlaceholder: 'Search reports...',
+        searchBtn: 'Search',
+        nPapers: ' reports'
       }
     };
+
+    // ── Category mapping: match paper tags/title to categories ──
+    const categoryKeywords = {
+      law:         ['law', 'legal', 'governance', 'constitution', '法律', '法学', '統治', '憲法', '制度', '国家', '国際法'],
+      philosophy:  ['philosophy', 'ontology', 'epistemology', '哲学', '思想', '存在', '認識', '形而上'],
+      science:     ['science', 'physics', 'biology', 'technology', 'engineering', 'computer', '科学', '技術', '物理', '生物', '工学', '情報'],
+      society:     ['society', 'culture', 'sociology', 'history', 'anthropology', '社会', '文化', '歴史', '人類学', '言語'],
+      economics:   ['economics', 'economy', 'finance', 'business', '経済', '金融', '経営', '労働', '市場'],
+      ethics:      ['ethics', 'ai ethics', 'bioethics', '倫理', 'AI倫理', '生命倫理', '意識'],
+      environment: ['environment', 'climate', 'energy', 'sustainability', '環境', '気候', 'エネルギー', '持続可能'],
+      health:      ['health', 'medicine', 'medical', 'neuroscience', '医療', '医学', '健康', '神経'],
+      education:   ['education', 'learning', '教育', '学習', '人材']
+    };
+
+    function detectCategory(paper) {
+      if (paper.category) return paper.category;
+      const text = (paper.title + ' ' + (paper.tags || []).join(' ') + ' ' + (paper.description || '')).toLowerCase();
+      for (const [catId, keywords] of Object.entries(categoryKeywords)) {
+        for (const kw of keywords) {
+          if (text.includes(kw.toLowerCase())) return catId;
+        }
+      }
+      return 'other';
+    }
 
     function switchLang(lang) {
       currentLang = lang;
@@ -298,11 +546,61 @@
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
 
-      document.getElementById('subtitle').textContent = t.subtitle;
-      document.getElementById('how-title').textContent = t.howTitle;
-      document.getElementById('how-steps').innerHTML = t.howSteps.map(s => `<li>${s}</li>`).join('');
-      document.getElementById('reports-title').textContent = t.reportsTitle;
+      document.getElementById('about-banner').innerHTML = t.about;
+      document.getElementById('subjects-title').innerHTML = t.subjectsTitle + ' <span class="filter-reset" id="filter-reset" onclick="resetFilter()">' + t.filterReset + '</span>';
+      document.getElementById('recent-title').innerHTML = t.recentTitle + ' <span class="paper-count" id="count"></span>';
+      document.getElementById('contribute-title').textContent = t.contributeTitle;
+      document.getElementById('contribute-steps').innerHTML = t.contributeSteps.map(s => `<li>${s}</li>`).join('');
+      document.getElementById('req-text').innerHTML = t.req;
+      document.getElementById('search-input').placeholder = t.searchPlaceholder;
+      document.getElementById('search-btn').textContent = t.searchBtn;
 
+      renderSubjects();
+      renderPapers();
+    }
+
+    function renderSubjects() {
+      const lang = currentLang;
+      const cats = categories[lang];
+      const grid = document.getElementById('subject-grid');
+      grid.innerHTML = '';
+
+      const filtered = allPapers.filter(p => p.lang === lang);
+
+      for (const cat of cats) {
+        const count = filtered.filter(p => detectCategory(p) === cat.id).length;
+        const card = document.createElement('div');
+        card.className = 'subject-card' + (activeCategory === cat.id ? ' active' : '');
+        card.onclick = () => toggleCategory(cat.id);
+        card.innerHTML = `
+          <h3>${cat.name}</h3>
+          <div class="sub-desc">${cat.desc}</div>
+          <div class="sub-count">${count}${i18n[lang].nPapers}</div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    function toggleCategory(catId) {
+      activeCategory = activeCategory === catId ? null : catId;
+      renderSubjects();
+      renderPapers();
+      const resetEl = document.getElementById('filter-reset');
+      if (resetEl) resetEl.style.display = activeCategory ? 'inline' : 'none';
+    }
+
+    function resetFilter() {
+      activeCategory = null;
+      searchQuery = '';
+      document.getElementById('search-input').value = '';
+      renderSubjects();
+      renderPapers();
+      const resetEl = document.getElementById('filter-reset');
+      if (resetEl) resetEl.style.display = 'none';
+    }
+
+    function doSearch() {
+      searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
       renderPapers();
     }
 
@@ -310,39 +608,53 @@
       const lang = currentLang;
       const t = i18n[lang];
       const list = document.getElementById('paper-list');
-      const count = document.getElementById('count');
+      const countEl = document.getElementById('count');
 
-      // 現在の言語に合うペーパーだけフィルタ
-      const filtered = allPapers.filter(p => p.lang === lang);
+      let filtered = allPapers.filter(p => p.lang === lang);
+
+      if (activeCategory) {
+        filtered = filtered.filter(p => detectCategory(p) === activeCategory);
+      }
+
+      if (searchQuery) {
+        filtered = filtered.filter(p => {
+          const text = (p.title + ' ' + (p.description || '') + ' ' + (p.tags || []).join(' ')).toLowerCase();
+          return text.includes(searchQuery);
+        });
+      }
 
       if (filtered.length === 0) {
-        list.innerHTML = `<div class="empty-state"><p>${t.emptyTitle}</p><p>${t.emptyBody}</p></div>`;
-        count.textContent = '';
+        list.innerHTML = `<div class="empty-state"><p>${t.emptyTitle}</p></div>`;
+        if (countEl) countEl.textContent = '';
         return;
       }
 
-      count.textContent = `${filtered.length}${t.count}`;
+      if (countEl) countEl.textContent = `(${filtered.length}${t.count})`;
       list.innerHTML = '';
 
       filtered.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
       for (const paper of filtered) {
-        const card = document.createElement('a');
-        card.className = 'paper-card';
-        card.href = `viewer.html?f=${paper.file}`;
+        const item = document.createElement('a');
+        item.className = 'paper-item';
+        item.href = `viewer.html?f=${paper.file}`;
 
         const expertCount = paper.experts || 10;
         const rounds = paper.rounds || 100;
+        const dateStr = paper.date || t.noDate;
 
-        card.innerHTML = `
-          <h3>${paper.title}</h3>
-          <div class="meta">${paper.date || t.noDate} — ${expertCount}${t.experts} — ${rounds}${t.rounds}</div>
-          <div class="description">${paper.description || ''}</div>
-          <div class="tags">
-            ${(paper.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+        item.innerHTML = `
+          <div>
+            <span class="paper-id">[aichive:${paper.date || '0000'}]</span>
+            <span class="paper-title">${paper.title}</span>
+          </div>
+          <div class="paper-meta">${dateStr} — ${expertCount}${t.experts} — ${rounds}${t.rounds}</div>
+          ${paper.description ? `<div class="paper-desc">${paper.description}</div>` : ''}
+          <div class="paper-tags">
+            ${(paper.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
         `;
-        list.appendChild(card);
+        list.appendChild(item);
       }
     }
 
@@ -353,10 +665,16 @@
           allPapers = await resp.json();
         }
       } catch (e) {}
+
+      renderSubjects();
       renderPapers();
 
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => switchLang(btn.dataset.lang));
+      });
+
+      document.getElementById('search-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') doSearch();
       });
     }
 

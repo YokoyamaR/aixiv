@@ -91,12 +91,15 @@ def main():
         slug = md_file.stem
         tags = [t for t in re.split(r'[_\-]', slug) if len(t) > 2 and not t.isdigit() and t not in ("ja", "en")][:4]
 
+        category = fm.get("category", "")
+
         paper_entry = {
             "file": md_file.name,
             "title": title,
             "date": date,
             "rounds": rounds,
             "lang": lang,
+            "category": category,
             "description": description,
             "tags": tags,
         }
