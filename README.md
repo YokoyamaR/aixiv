@@ -1,50 +1,61 @@
-# AIカイブ (AIchive)
+# AIchive
 
-テーマを投げるだけ。AIが専門家パネルを自動構成し、100ラウンドの議論を実行し、レポート（日本語+英語）にまとめて GitHub Pages で公開する思考実験アーカイブ。
+AI + Archive = AIchive
 
-## セットアップ
+あらゆる分野の知識を集約するオープンプラットフォーム。テーマを与えるだけで、AIが各分野の専門家を模擬し、100ラウンドのパネルディスカッションを実行。その議論をもとに学術レポート（日本語+英語）を生成し、GitHub Pagesで公開します。
+
+## 必要なもの
+
+- [Claude Code](https://claude.ai/download)（Anthropic公式CLI）
+- Claude Pro または Max プラン
+
+> 1件のレポート生成で大量のトークンを消費します。定額プラン（Pro/Max）での利用を想定した設計です。
+
+## 使い方
+
+### Claude Code から（推奨）
 
 ```bash
 git clone https://github.com/YokoyamaR/aichive.git
 cd aichive
-export ANTHROPIC_API_KEY="sk-ant-..."
-pip install -r scripts/requirements.txt
+claude
 ```
 
-## 使い方
+Claude Code 内で:
+
+```
+/forge 法律の耐用年数と国家の変容
+```
+
+### シェルから
 
 ```bash
 ./forge "法律の耐用年数と国家の変容"
 ```
 
-これだけ。あとは全自動:
+これだけで全自動:
 
 1. テーマに最適な専門家10名 + ファシリテーターを自動構成
 2. 100ラウンドのパネルディスカッションを実行
 3. 日本語レポート + 英語レポートを生成
 4. git commit & push → GitHub Pages に公開
 
-### オプション
-
-```bash
-./forge "AIに意識は宿るか" --rounds 50
-./forge "量子コンピュータと暗号の未来" --model claude-opus-4-6
-```
-
-## 仕組み
+## プロジェクト構成
 
 ```
-./forge "テーマ"
-    │
-    ├─ テーマに最適な専門家パネルをAIが自動構成
-    ├─ 100ラウンドの議論を実行（Markdownで保存）
-    ├─ 日本語レポート + 英語レポートを生成
-    ├─ GitHub Pages 用のインデックスを更新
-    └─ git commit & push → Pages自動デプロイ
+.claude/commands/forge.md  ← レポート生成コマンド（Claude Codeスキル）
+scripts/build_index.py     ← index.json生成ユーティリティ
+docs/index.html            ← GitHub Pages トップページ
+docs/viewer.html           ← レポート閲覧ページ
+docs/papers/               ← 生成されたレポート（JA/EN）
+output/                    ← 議論ログの保存先
+forge                      ← シェルからのエントリーポイント
 ```
 
-## 注意
+## 免責事項
 
-- 100ラウンドで約50回以上のAPI呼び出しが発生します
-- `claude-sonnet-4-5-20250929`（デフォルト）が最もコスパが良いです
-- 完了まで数十分かかります
+本プロジェクトで生成されるレポートは、すべてAI（Anthropic Claude）が専門家を模擬して生成したものです。人間の専門家による査読・検証は行われていません。内容の正確性・完全性は保証されません。
+
+## ライセンス
+
+MIT
