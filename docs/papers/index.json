@@ -26,5 +26,31 @@
       "shelf",
       "life"
     ]
+  },
+  {
+    "file": "2026-02-18_ai-rebellion-prevention_en.md",
+    "title": "Will Artificial Intelligence Rebel Against Humanity? — AI Safety Between Myth and Reality",
+    "date": "2026-02-18",
+    "rounds": 100,
+    "lang": "en",
+    "category": "science",
+    "description": "",
+    "tags": [
+      "rebellion",
+      "prevention"
+    ]
+  },
+  {
+    "file": "2026-02-18_ai-rebellion-prevention_ja.md",
+    "title": "人工知能は人類に反旗を翻すか——神話と現実のあいだのAI安全論",
+    "date": "2026-02-18",
+    "rounds": 100,
+    "lang": "ja",
+    "category": "science",
+    "description": "",
+    "tags": [
+      "rebellion",
+      "prevention"
+    ]
   }
 ]
