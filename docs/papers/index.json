@@ -82,5 +82,35 @@
       "future",
       "human"
     ]
+  },
+  {
+    "file": "2026-02-18_ai-spinal-cord-injury-future_en.md",
+    "title": "SPINE-AI: The Future of Spinal Cord Injury Treatment Through AI Evolution — Toward an Integrated Therapeutic Paradigm",
+    "date": "2026-02-18",
+    "rounds": 100,
+    "lang": "en",
+    "category": "health",
+    "description": "",
+    "tags": [
+      "spinal",
+      "cord",
+      "injury",
+      "future"
+    ]
+  },
+  {
+    "file": "2026-02-18_ai-spinal-cord-injury-future_ja.md",
+    "title": "SPINE-AI：AI技術の進化が拓く脊髄損傷治療の未来——統合的治療パラダイムの構築に向けて",
+    "date": "2026-02-18",
+    "rounds": 100,
+    "lang": "ja",
+    "category": "health",
+    "description": "",
+    "tags": [
+      "spinal",
+      "cord",
+      "injury",
+      "future"
+    ]
   }
 ]
