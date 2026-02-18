@@ -1,6 +1,6 @@
-# AIchive
+# AIXiv
 
-AI + Archive = AIchive
+AI + arXiv = AIXiv
 
 あらゆる分野の知識を集約するオープンプラットフォーム。テーマを与えるだけで、AIが各分野の専門家を模擬し、100ラウンドのパネルディスカッションを実行。その議論をもとに学術レポート（日本語+英語）を生成し、GitHub Pagesで公開します。
 
@@ -16,8 +16,8 @@ AI + Archive = AIchive
 ### Claude Code から（推奨）
 
 ```bash
-git clone https://github.com/YokoyamaR/aichive.git
-cd aichive
+git clone https://github.com/YokoyamaR/aixiv.git
+cd aixiv
 claude
 ```
 
