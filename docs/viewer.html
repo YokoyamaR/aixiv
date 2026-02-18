@@ -247,6 +247,16 @@
       margin-bottom: 0.3rem;
     }
 
+    .view-count {
+      display: inline-block;
+      margin-top: 0.4rem;
+      padding: 0.15rem 0.6rem;
+      background: var(--code-bg);
+      border-radius: 3px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
     .ai-disclaimer {
       font-family: "Helvetica Neue", "Noto Sans JP", Arial, sans-serif;
       background: #fff8e1;
@@ -351,14 +361,17 @@
           metaHTML += `<div>Generated from ${rounds}-round AI-simulated expert panel discussion</div>`;
           if (langLabel) metaHTML += `<div>Language: ${langLabel}</div>`;
 
-          metaHTML += '<div id="view-count"></div>';
+          metaHTML += '<div class="view-count" id="view-count">Views: ...</div>';
           metaBanner.innerHTML = metaHTML;
           h1.after(metaBanner);
 
           // Show view count when API responds (non-blocking)
           viewCountPromise.then(data => {
+            const el = document.getElementById('view-count');
             if (data && data.count != null) {
-              document.getElementById('view-count').textContent = 'Views: ' + data.count;
+              el.textContent = 'Views: ' + data.count;
+            } else {
+              el.style.display = 'none';
             }
           });
 

@@ -263,6 +263,15 @@
       margin-top: 0.2rem;
     }
 
+    .paper-item .paper-views {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--cat-bg);
+      padding: 0.05rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.4rem;
+    }
+
     .paper-item .paper-desc {
       font-size: 0.85rem;
       color: var(--text-muted);
@@ -699,7 +708,7 @@
             <span class="paper-id">[aixiv:${paper.date || '0000'}]</span>
             <span class="paper-title">${paper.title}</span>
           </div>
-          <div class="paper-meta">${dateStr} — ${expertCount}${t.experts} — ${rounds}${t.rounds}${viewCounts[paper.file] ? ' — ' + viewCounts[paper.file] + ' views' : ''}</div>
+          <div class="paper-meta">${dateStr} — ${expertCount}${t.experts} — ${rounds}${t.rounds}${viewCounts[paper.file] ? '<span class="paper-views">' + viewCounts[paper.file] + ' views</span>' : ''}</div>
           ${paper.description ? `<div class="paper-desc">${paper.description}</div>` : ''}
           <div class="paper-tags">
             ${(paper.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
