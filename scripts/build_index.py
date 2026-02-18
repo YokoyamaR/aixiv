@@ -105,6 +105,9 @@ def main():
         }
         papers.append(paper_entry)
 
+    # 最新順（日付降順）にソート
+    papers.sort(key=lambda p: p.get("date", ""), reverse=True)
+
     index_path = papers_dir / "index.json"
     index_path.write_text(
         json.dumps(papers, ensure_ascii=False, indent=2), encoding="utf-8"

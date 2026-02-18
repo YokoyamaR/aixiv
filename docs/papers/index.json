@@ -1,33 +1,5 @@
 [
   {
-    "file": "2026-02-16_law-shelf-life_en.md",
-    "title": "The Shelf Life of Law and the Transformation of the State",
-    "date": "2026-02-16",
-    "rounds": 100,
-    "lang": "en",
-    "category": "law",
-    "description": "",
-    "tags": [
-      "law",
-      "shelf",
-      "life"
-    ]
-  },
-  {
-    "file": "2026-02-16_law-shelf-life_ja.md",
-    "title": "法律の耐用年数と国家の変容",
-    "date": "2026-02-16",
-    "rounds": 100,
-    "lang": "ja",
-    "category": "law",
-    "description": "",
-    "tags": [
-      "law",
-      "shelf",
-      "life"
-    ]
-  },
-  {
     "file": "2026-02-18_ai-rebellion-prevention_en.md",
     "title": "Will Artificial Intelligence Rebel Against Humanity? — AI Safety Between Myth and Reality",
     "date": "2026-02-18",
@@ -141,6 +113,34 @@
       "supplies",
       "carry",
       "home"
+    ]
+  },
+  {
+    "file": "2026-02-16_law-shelf-life_en.md",
+    "title": "The Shelf Life of Law and the Transformation of the State",
+    "date": "2026-02-16",
+    "rounds": 100,
+    "lang": "en",
+    "category": "law",
+    "description": "",
+    "tags": [
+      "law",
+      "shelf",
+      "life"
+    ]
+  },
+  {
+    "file": "2026-02-16_law-shelf-life_ja.md",
+    "title": "法律の耐用年数と国家の変容",
+    "date": "2026-02-16",
+    "rounds": 100,
+    "lang": "ja",
+    "category": "law",
+    "description": "",
+    "tags": [
+      "law",
+      "shelf",
+      "life"
     ]
   }
 ]
