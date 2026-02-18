@@ -473,10 +473,13 @@
   </div>
 
   <script>
+    const VIEW_API = 'https://script.google.com/macros/s/AKfycbyGBHtvr-JjcKL57eIcVATnPuWyr_bcY2kxRw-FFQ4_caJlMWL5uugzXPOubQqSJTQD/exec';
+
     let currentLang = 'ja';
     let allPapers = [];
     let activeCategory = null;
     let searchQuery = '';
+    let viewCounts = {};
 
     // ── Subject categories ──
     const categories = {
@@ -696,7 +699,7 @@
             <span class="paper-id">[aixiv:${paper.date || '0000'}]</span>
             <span class="paper-title">${paper.title}</span>
           </div>
-          <div class="paper-meta">${dateStr} — ${expertCount}${t.experts} — ${rounds}${t.rounds}</div>
+          <div class="paper-meta">${dateStr} — ${expertCount}${t.experts} — ${rounds}${t.rounds}${viewCounts[paper.file] ? ' — ' + viewCounts[paper.file] + ' views' : ''}</div>
           ${paper.description ? `<div class="paper-desc">${paper.description}</div>` : ''}
           <div class="paper-tags">
             ${(paper.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
@@ -716,6 +719,12 @@
 
       renderSubjects();
       renderPapers();
+
+      // Fetch view counts (non-blocking)
+      fetch(VIEW_API + '?action=list').then(r => r.json()).then(data => {
+        viewCounts = data;
+        renderPapers();
+      }).catch(() => {});
 
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => switchLang(btn.dataset.lang));

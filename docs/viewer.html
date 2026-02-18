@@ -283,6 +283,8 @@
     <div id="content" class="loading">Loading...</div>
   </div>
   <script>
+    const VIEW_API = 'https://script.google.com/macros/s/AKfycbyGBHtvr-JjcKL57eIcVATnPuWyr_bcY2kxRw-FFQ4_caJlMWL5uugzXPOubQqSJTQD/exec';
+
     async function loadPaper() {
       const params = new URLSearchParams(window.location.search);
       const file = params.get('f');
@@ -297,6 +299,10 @@
       // Extract metadata from filename
       const dateMatch = file.match(/^(\d{4}-\d{2}-\d{2})/);
       const lang = file.endsWith('_ja.md') ? 'ja' : file.endsWith('_en.md') ? 'en' : '';
+
+      // Fire-and-forget: count view and capture promise for later display
+      const viewCountPromise = fetch(`${VIEW_API}?action=count&paper=${encodeURIComponent(file)}`)
+        .then(r => r.json()).catch(() => null);
 
       try {
         const resp = await fetch(`papers/${file}`);
@@ -345,8 +351,16 @@
           metaHTML += `<div>Generated from ${rounds}-round AI-simulated expert panel discussion</div>`;
           if (langLabel) metaHTML += `<div>Language: ${langLabel}</div>`;
 
+          metaHTML += '<div id="view-count"></div>';
           metaBanner.innerHTML = metaHTML;
           h1.after(metaBanner);
+
+          // Show view count when API responds (non-blocking)
+          viewCountPromise.then(data => {
+            if (data && data.count != null) {
+              document.getElementById('view-count').textContent = 'Views: ' + data.count;
+            }
+          });
 
           // AI生成の注記（メタバナーの直後）
           const aiNotice = document.createElement('div');
