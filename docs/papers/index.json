@@ -52,5 +52,35 @@
       "rebellion",
       "prevention"
     ]
+  },
+  {
+    "file": "2026-02-18_ai-self-growth-future-human-role_en.md",
+    "title": "Redefining Human Roles in the Age of Self-Improving AI: Toward an Intelligence Symbiosis Paradigm",
+    "date": "2026-02-18",
+    "rounds": 100,
+    "lang": "en",
+    "category": "philosophy",
+    "description": "",
+    "tags": [
+      "self",
+      "growth",
+      "future",
+      "human"
+    ]
+  },
+  {
+    "file": "2026-02-18_ai-self-growth-future-human-role_ja.md",
+    "title": "自己成長AIの時代における人間の役割の再定義——知性共生パラダイムの構築に向けて",
+    "date": "2026-02-18",
+    "rounds": 100,
+    "lang": "ja",
+    "category": "philosophy",
+    "description": "",
+    "tags": [
+      "self",
+      "growth",
+      "future",
+      "human"
+    ]
   }
 ]
